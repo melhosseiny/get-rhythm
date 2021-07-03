@@ -1,45 +1,18 @@
 # PostCSS Rhythm
 
-[PostCSS] plugin to apply vertical rhythm and use a modular typographic scale.
+[PostCSS] plugin to generate vertical rhythm using a modular typographic scale
 
 [PostCSS]: https://github.com/postcss/postcss
 
 ```css
-.foo {
-    /* Input example */
-}
-```
-
-```css
-.foo {
-  /* Output example */
-}
+@scale 16 1.618 2;
 ```
 
 ## Usage
 
-**Step 1:** Install plugin:
+import postcss from "https://deno.land/x/postcss/mod.js";
+import get_rhythm from "./postcss-rhythm.js";
 
-```sh
-npm install --save-dev postcss postcss-rhythm
-```
+const css = '@scale 16 1.618 2;';
 
-**Step 2:** Check you project for existed PostCSS config: `postcss.config.js`
-in the project root, `"postcss"` section in `package.json`
-or `postcss` in bundle config.
-
-If you do not use PostCSS, add it according to [official docs]
-and set this plugin in settings.
-
-**Step 3:** Add the plugin to plugins list:
-
-```diff
-module.exports = {
-  plugins: [
-+   require('postcss-rhythm'),
-    require('autoprefixer')
-  ]
-}
-```
-
-[official docs]: https://github.com/postcss/postcss#usage
+const result = await postcss([get_rhythm]).process(css);

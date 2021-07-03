@@ -12,11 +12,9 @@
  7 86
 */
 
-const postcss = require('postcss');
-
-module.exports = (opts = { }) => {
+const plugin = (opts = { }) => {
   return {
-    postcssPlugin: 'postcss-rhythm',
+    postcssPlugin: 'get-rhythm',
     AtRule: {
       scale: atRule => {
         const params = atRule.params.split(' ');
@@ -43,11 +41,11 @@ module.exports = (opts = { }) => {
             background-image: linear-gradient(rgba(238,0,0,0.5) 1px, transparent 1px);
             background-size: 100% ${fi(sm)}px;
 
-            @media (--gt-md-viewport) {
+            @media (min-width: 60em) {
               background-size: 100% ${fi(md)}px;
             }
 
-            @media (--gt-lg-viewport) {
+            @media (min-width: 120em) {
               background-size: 100% ${fi(lg)}px;
             }
           }
@@ -88,11 +86,11 @@ module.exports = (opts = { }) => {
         const rhythm = (grid = false) => `
           ${grid ? gridTemplate(1, 2, 2) : ''}
           ${template(0, 1).trim()}
-          @media (--gt-md-viewport) {
+          @media (min-width: 60em) {
             ${template(1, 2).trim()}
           }
 
-          @media (--gt-lg-viewport) {
+          @media (min-width: 120em) {
             ${template(1, 2).trim()}
           }
         `
@@ -103,4 +101,7 @@ module.exports = (opts = { }) => {
 
   }
 }
-module.exports.postcss = true
+
+plugin.postcss = true;
+
+export default plugin;
